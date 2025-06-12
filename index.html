@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ব্যবসায়িক হিসাব - Professional System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h2>ব্যবসায়িক হিসাব</h2>
+                        <span>Professional System</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item active" data-section="dashboard">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>ড্যাশবোর্ড</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-section="transactions">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>লেনদেন</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-section="reports">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>রিপোর্ট</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-section="analytics">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-analytics"></i>
+                            <span>বিশ্লেষণ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-section="settings">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>সেটিংস</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-name">হাফিজুর রহমান মানিক</div>
+                        <div class="user-role">ইউজার</div>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <button class="quick-btn" onclick="backupData()">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="quick-btn" onclick="printReport()">
+                        <i class="fas fa-print"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="page-title">
+                    <h1 id="currentPageTitle">ড্যাশবোর্ড</h1>
+                    <p id="currentPageSubtitle">আপনার ব্যবসায়িক হিসাবের সম্পূর্ণ চিত্র</p>
+                </div>
+                
+                <div class="top-bar-actions">
+                    <div class="theme-toggle">
+                        <button id="themeToggle" class="theme-toggle-btn">
+                            <i class="fas fa-sun light-icon"></i>
+                            <i class="fas fa-moon dark-icon"></i>
+                        </button>
+                    </div>
+                    <div class="current-time">
+                        <i class="fas fa-clock"></i>
+                        <div class="time-info">
+                            <div class="time-display" id="currentTime"></div>
+                            <div class="date-display" id="currentDate"></div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Wrapper -->
+            <div class="content-wrapper">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <!-- KPI Overview -->
+                    <div class="kpi-overview">
+                        <div class="kpi-card">
+                            <div class="kpi-icon">
+                                <i class="fas fa-wallet"></i>
+                            </div>
+                            <div class="kpi-content">
+                                <div class="kpi-value" id="totalBalance">0</div>
+                                <div class="kpi-label">মোট ব্যালেন্স</div>
+                                <div class="kpi-change positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>স্থিতিশীল</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card success">
+                            <div class="kpi-icon">
+                                <i class="fas fa-arrow-up"></i>
+                            </div>
+                            <div class="kpi-content">
+                                <div class="kpi-value" id="totalIncome">0</div>
+                                <div class="kpi-label">মোট আয়</div>
+                                <div class="kpi-change positive">
+                                    <i class="fas fa-arrow-up"></i>
+                                    <span>বৃদ্ধি</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card danger">
+                            <div class="kpi-icon">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                            <div class="kpi-content">
+                                <div class="kpi-value" id="totalExpense">0</div>
+                                <div class="kpi-label">মোট ব্যয়</div>
+                                <div class="kpi-change negative">
+                                    <i class="fas fa-arrow-down"></i>
+                                    <span>নিয়ন্ত্রিত</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card info">
+                            <div class="kpi-icon">
+                                <i class="fas fa-list"></i>
+                            </div>
+                            <div class="kpi-content">
+                                <div class="kpi-value" id="totalTransactions">0</div>
+                                <div class="kpi-label">মোট লেনদেন</div>
+                                <div class="kpi-change neutral">
+                                    <i class="fas fa-minus"></i>
+                                    <span>সক্রিয়</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Grid -->
+                    <div class="dashboard-grid">
+                        <!-- Today's Stats -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-calendar-day"></i> আজকের পরিসংখ্যান</h3>
+                                <button class="view-all-btn" onclick="switchSection('transactions')">
+                                    <span>বিস্তারিত</span>
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <div class="stat-grid">
+                                    <div class="stat-item">
+                                        <div class="stat-value" id="todayIncome">0</div>
+                                        <div class="stat-label">আজকের আয়</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-value" id="todayExpense">0</div>
+                                        <div class="stat-label">আজকের ব্যয়</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-value" id="todayTransactions">0</div>
+                                        <div class="stat-label">আজকের লেনদেন</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Monthly Summary -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-calendar-alt"></i> মাসিক সারসংক্ষেপ</h3>
+                                <button class="view-all-btn" onclick="switchSection('reports')">
+                                    <span>রিপোর্ট</span>
+                                    <i class="fas fa-chart-line"></i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <div class="monthly-summary">
+                                    <div class="summary-item">
+                                        <span class="summary-label">মাসিক আয়</span>
+                                        <span class="summary-value income-color" id="monthlyIncome">০ টাকা</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">মাসিক ব্যয়</span>
+                                        <span class="summary-value expense-color" id="monthlyExpense">০ টাকা</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="summary-label">মাসিক লাভ</span>
+                                        <span class="summary-value" id="monthlyProfit">০ টাকা</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Transactions -->
+                        <div class="dashboard-card" style="grid-column: 1 / -1;">
+                            <div class="card-header">
+                                <h3><i class="fas fa-history"></i> সাম্প্রতিক লেনদেন</h3>
+                                <button class="view-all-btn" onclick="switchSection('transactions')">
+                                    <span>সব দেখুন</span>
+                                    <i class="fas fa-external-link-alt"></i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <div class="recent-transactions-list" id="recentTransactionsList">
+                                    <!-- Recent transactions will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Transactions Section -->
+                <section id="transactions-section" class="content-section">
+                    <!-- Transaction Form -->
+                    <div class="transaction-form-container">
+                        <div class="form-card">
+                            <div class="form-header">
+                                <h3><i class="fas fa-plus-circle"></i> নতুন লেনদেন যুক্ত করুন</h3>
+                                <div class="auto-timestamp">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="autoTimestamp"></span>
+                                </div>
+                            </div>
+                            <form class="transaction-form" id="transactionForm">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label" for="description">
+                                            <i class="fas fa-file-alt"></i>
+                                            বিবরণ
+                                        </label>
+                                        <input type="text" id="description" class="form-input" placeholder="লেনদেনের বিবরণ লিখুন" required>
+                                        <div class="error-message" id="descriptionError"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="amount">
+                                            <i class="fas fa-money-bill-wave"></i>
+                                            পরিমাণ (টাকা)
+                                        </label>
+                                        <input type="number" id="amount" class="form-input" placeholder="০.০০" step="0.01" min="0" required>
+                                        <div class="error-message" id="amountError"></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="category">
+                                            <i class="fas fa-tags"></i>
+                                            ক্যাটেগরি
+                                        </label>
+                                        <select id="category" class="form-select">
+                                            <option value="সাধারণ">সাধারণ</option>
+                                            <option value="বিক্রয়">বিক্রয়</option>
+                                            <option value="সেবা">সেবা</option>
+                                            <option value="অফিস খরচ">অফিস খরচ</option>
+                                            <option value="ইউটিলিটি">ইউটিলিটি</option>
+                                            <option value="পরিবহন">পরিবহন</option>
+                                            <option value="খাদ্য">খাদ্য</option>
+                                            <option value="অন্যান্য">অন্যান্য</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="type">
+                                            <i class="fas fa-exchange-alt"></i>
+                                            লেনদেনের ধরন
+                                        </label>
+                                        <select id="type" class="form-select" required>
+                                            <option value="">আয় (+) বা ব্যয় (-) নির্বাচন করুন</option>
+                                            <option value="credit">আয় (+)</option>
+                                            <option value="debit">ব্যয় (-)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-primary btn-large">
+                                        <i class="fas fa-plus"></i>
+                                        লেনদেন যুক্ত করুন
+                                    </button>
+                                    <button type="button" class="btn-secondary" onclick="document.getElementById('transactionForm').reset()">
+                                        <i class="fas fa-redo"></i>
+                                        রিসেট
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Tables Grid -->
+                    <div class="tables-grid">
+                        <!-- Income Table -->
+                        <div class="table-container income-table">
+                            <div class="table-header">
+                                <h3 class="table-title">
+                                    <i class="fas fa-arrow-up"></i>
+                                    আয়ের তালিকা
+                                </h3>
+                                <div class="table-actions">
+                                    <button class="filter-btn">
+                                        <i class="fas fa-filter"></i>
+                                        ফিল্টার
+                                    </button>
+                                    <button class="sort-btn">
+                                        <i class="fas fa-sort"></i>
+                                        সাজান
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="data-table" id="creditTable">
+                                    <thead>
+                                        <tr>
+                                            <th>তারিখ ও সময়</th>
+                                            <th>বিবরণ</th>
+                                            <th>ক্যাটেগরি</th>
+                                            <th class="text-right">পরিমাণ</th>
+                                            <th class="text-center">অ্যাকশন</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Income data will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Expense Table -->
+                        <div class="table-container expense-table">
+                            <div class="table-header">
+                                <h3 class="table-title">
+                                    <i class="fas fa-arrow-down"></i>
+                                    ব্যয়ের তালিকা
+                                </h3>
+                                <div class="table-actions">
+                                    <button class="filter-btn">
+                                        <i class="fas fa-filter"></i>
+                                        ফিল্টার
+                                    </button>
+                                    <button class="sort-btn">
+                                        <i class="fas fa-sort"></i>
+                                        সাজান
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="table-wrapper">
+                                <table class="data-table" id="debitTable">
+                                    <thead>
+                                        <tr>
+                                            <th>তারিখ ও সময়</th>
+                                            <th>বিবরণ</th>
+                                            <th>ক্যাটেগরি</th>
+                                            <th class="text-right">পরিমাণ</th>
+                                            <th class="text-center">অ্যাকশন</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Expense data will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Reports Section -->
+                <section id="reports-section" class="content-section">
+                    <div class="reports-grid">
+                        <!-- Financial Summary -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h3><i class="fas fa-chart-pie"></i> আর্থিক সারসংক্ষেপ</h3>
+                            </div>
+                            <div class="report-content">
+                                <div class="financial-metrics">
+                                    <div class="metric">
+                                        <span class="metric-label">মোট আয়</span>
+                                        <span class="metric-value income-color" id="reportTotalIncome">০ টাকা</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">মোট ব্যয়</span>
+                                        <span class="metric-value expense-color" id="reportTotalExpense">০ টাকা</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">নিট লাভ</span>
+                                        <span class="metric-value" id="reportNetProfit">০ টাকা</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Category Breakdown -->
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h3><i class="fas fa-chart-bar"></i> ক্যাটেগরি অনুযায়ী ব্যয়</h3>
+                            </div>
+                            <div class="report-content">
+                                <div id="categoryBreakdown">
+                                    <!-- Category breakdown will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Export Options -->
+                        <div class="report-card" style="grid-column: 1 / -1;">
+                            <div class="report-header">
+                                <h3><i class="fas fa-download"></i> রিপোর্ট এক্সপোর্ট</h3>
+                            </div>
+                            <div class="report-content">
+                                <div class="export-buttons">
+                                    <button class="export-btn" onclick="exportToCSV()">
+                                        <i class="fas fa-file-csv"></i>
+                                        <span>CSV</span>
+                                    </button>
+                                    <button class="export-btn" onclick="generatePDF()">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>PDF</span>
+                                    </button>
+                                    <button class="export-btn" onclick="printReport()">
+                                        <i class="fas fa-print"></i>
+                                        <span>প্রিন্ট</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics-section" class="content-section">
+                    <div class="analytics-grid">
+                        <!-- Trend Analysis -->
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-trending-up"></i> ট্রেন্ড বিশ্লেষণ</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="trend-info">
+                                    <div class="trend-item">
+                                        <span class="trend-label">এই মাসের আয়</span>
+                                        <span class="trend-value" id="thisMonthIncome">০ টাকা</span>
+                                    </div>
+                                    <div class="trend-item">
+                                        <span class="trend-label">গত মাসের আয়</span>
+                                        <span class="trend-value" id="lastMonthIncome">০ টাকা</span>
+                                    </div>
+                                    <div class="trend-item">
+                                        <span class="trend-label">পরিবর্তন</span>
+                                        <span class="trend-value" id="incomeChange">০%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Average Statistics -->
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h3><i class="fas fa-calculator"></i> গড় পরিসংখ্যান</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="average-stats">
+                                    <div class="avg-item">
+                                        <span class="avg-label">গড় আয়</span>
+                                        <span class="avg-value" id="avgIncome">০ টাকা</span>
+                                    </div>
+                                    <div class="avg-item">
+                                        <span class="avg-label">গড় ব্যয়</span>
+                                        <span class="avg-value" id="avgExpense">০ টাকা</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings-section" class="content-section">
+                    <div class="settings-grid">
+                        <!-- Data Management -->
+                        <div class="settings-card">
+                            <div class="settings-header">
+                                <h3><i class="fas fa-database"></i> ডেটা ব্যবস্থাপনা</h3>
+                            </div>
+                            <div class="settings-content">
+                                <div class="setting-group">
+                                    <button class="setting-btn backup" onclick="backupData()">
+                                        <i class="fas fa-download"></i>
+                                        ডেটা ব্যাকআপ
+                                    </button>
+                                    <p class="setting-description">আপনার সমস্ত লেনদেনের তথ্য ডাউনলোড করুন</p>
+                                </div>
+
+                                <div class="setting-group">
+                                    <input type="file" id="restoreFile" accept=".json" onchange="restoreData(event)" style="display: none;">
+                                    <button class="setting-btn restore" onclick="document.getElementById('restoreFile').click()">
+                                        <i class="fas fa-upload"></i>
+                                        ডেটা রিস্টোর
+                                    </button>
+                                    <p class="setting-description">পূর্বে সংরক্ষিত ব্যাকআপ ফাইল থেকে ডেটা পুনরুদ্ধার করুন</p>
+                                </div>
+
+                                <div class="setting-group">
+                                    <button class="setting-btn reset" onclick="resetAllData()">
+                                        <i class="fas fa-trash-alt"></i>
+                                        সমস্ত ডেটা মুছুন
+                                    </button>
+                                    <p class="setting-description">সতর্কতা: এই অপশনটি সমস্ত লেনদেনের তথ্য স্থায়ীভাবে মুছে দেবে</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Information -->
+                        <div class="settings-card">
+                            <div class="settings-header">
+                                <h3><i class="fas fa-info-circle"></i> সিস্টেম তথ্য</h3>
+                            </div>
+                            <div class="settings-content">
+                                <div class="system-info">
+                                    <div class="info-item">
+                                        <span class="info-label">সর্বশেষ আপডেট</span>
+                                        <span class="info-value" id="lastUpdate">আজ</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">ডেটা সাইজ</span>
+                                        <span class="info-value" id="totalDataSize">0 KB</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <span class="info-label">সংস্করণ</span>
+                                        <span class="info-value">2.0.0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-overlay" onclick="closeEditModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-edit"></i>
+                    লেনদেন সম্পাদনা
+                </h3>
+                <button class="modal-close" onclick="closeEditModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label" for="editDescription">বিবরণ</label>
+                    <input type="text" id="editDescription" class="form-input" required>
+                    <div class="error-message" id="editDescriptionError"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="editAmount">পরিমাণ (টাকা)</label>
+                    <input type="number" id="editAmount" class="form-input" step="0.01" min="0" required>
+                    <div class="error-message" id="editAmountError"></div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="editCategory">ক্যাটেগরি</label>
+                    <select id="editCategory" class="form-select">
+                        <option value="সাধারণ">সাধারণ</option>
+                        <option value="বিক্রয়">বিক্রয়</option>
+                        <option value="সেবা">সেবা</option>
+                        <option value="অফিস খরচ">অফিস খরচ</option>
+                        <option value="ইউটিলিটি">ইউটিলিটি</option>
+                        <option value="পরিবহন">পরিবহন</option>
+                        <option value="খাদ্য">খাদ্য</option>
+                        <option value="অন্যান্য">অন্যান্য</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="saveEdit()">
+                    <i class="fas fa-save"></i>
+                    সংরক্ষণ
+                </button>
+                <button class="btn-secondary" onclick="closeEditModal()">
+                    <i class="fas fa-times"></i>
+                    বাতিল
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification">
+        <div class="notification-content">
+            <i class="notification-icon"></i>
+            <span class="notification-message"></span>
+            <button class="notification-close" onclick="hideNotification()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <div class="loading-text">প্রক্রিয়াকরণ...</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
